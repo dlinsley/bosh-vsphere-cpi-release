@@ -120,7 +120,7 @@ module VSphereCloud
     def create_stemcell(image, _)
       with_thread_name("create_stemcell(#{image}, _)") do
         # Add cpi telemetry advanced config to vc
-        enable_telemetry
+        fork { Process.daemon and enable_telemetry }
         result = nil
         Dir.mktmpdir do |temp_dir|
           @logger.info("Extracting stemcell to: #{temp_dir}")
