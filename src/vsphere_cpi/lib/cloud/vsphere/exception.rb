@@ -9,5 +9,9 @@ module VSphereCloud
     def to_s
       "#{super}: #{fault.msg}"
     end
+
+    def unplaceable?
+      fault.is_a?(VimSdk::Vim::Fault::RuleViolation) or fault.is_a?(VimSdk::Vim::Fault::GenericDrsFault)
+    end
   end
 end
